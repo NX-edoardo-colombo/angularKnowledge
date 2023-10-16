@@ -1,5 +1,9 @@
-<kno-easy [label]="name" (clickPremi)="onClick()" (clickContent)="onClickContent($event)"></kno-easy>
+<div class="box">
+    <kno-easy [label]="name" (clickPremi)="onClick()" (clickContent)="onClickContent($event)"></kno-easy>
 
-<div><button (click)="onDrinkButtonClick()">Get a Drink</button></div>
+    <div><button (click)="onDrinkButtonClick()">Get a Drink</button></div>
 
-il tuo drink e': {{drink}}
+    il tuo drink e': {{drink}}
+
+    <kno-drink-page></kno-drink-page>
+</div>

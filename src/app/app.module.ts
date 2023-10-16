@@ -7,13 +7,17 @@ import { AppComponent } from './app.component';
 import { EasyComponent } from './Components/easy/easy.component';
 import { EasyAComponent } from './Components/easy-a/easy-a.component';
 import { EasyBComponent } from './Components/easy-b/easy-b.component';
+import { DrinkPageTableComponent } from './drink-page-table/drink-page-table.component';
+import { DrinkPageComponent } from './drink-page/drink-page.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     EasyComponent,
     EasyAComponent,
-    EasyBComponent
+    EasyBComponent,
+    DrinkPageTableComponent,
+    DrinkPageComponent
   ],
   imports: [
     BrowserModule,
