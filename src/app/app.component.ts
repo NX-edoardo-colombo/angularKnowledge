@@ -7,4 +7,13 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
 
+  name: string = 'Edoardo'
+
+  onClick() {
+    this.name = this.name == 'Edoardo' ? 'Samuele' : 'Edoardo'
+    console.log('Ciao ' + this.name)
+  }
+
+
+
 }
