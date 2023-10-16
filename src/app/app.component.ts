@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { DrinkService } from './Services/drink.service';
 
 @Component({
   selector: 'kno-root',
@@ -7,13 +8,24 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
 
-  name: string = 'Edoardo'
+  name: string = 'gian franco'
 
-  onClick() {
-    this.name = this.name == 'Edoardo' ? 'Samuele' : 'Edoardo'
-    console.log('Ciao ' + this.name)
+  drink: string = ''
+
+  constructor(private readonly drinkService: DrinkService) {
+
   }
 
+  onClick() {
+    console.log('Ciao hai cliccato')
+  }
 
+  onClickContent(event: string) {
+    console.log('xxxCiao hai cliccato', event)
+  }
+
+  onDrinkButtonClick() {
+    this.drinkService.getRandomCocktail$().subscribe(dto => this.drink = dto.drinks[0].strDrink)
+  }
 
 }

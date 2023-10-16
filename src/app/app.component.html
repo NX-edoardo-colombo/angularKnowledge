@@ -1,2 +1,5 @@
-Ciao {{name}}
-<button (click)="onClick()">Premi</button>
+<kno-easy [label]="name" (clickPremi)="onClick()" (clickContent)="onClickContent($event)"></kno-easy>
+
+<div><button (click)="onDrinkButtonClick()">Get a Drink</button></div>
+
+il tuo drink e': {{drink}}
