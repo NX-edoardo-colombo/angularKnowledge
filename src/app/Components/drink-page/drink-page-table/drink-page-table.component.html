@@ -1,0 +1,17 @@
+<div class="box">
+  <h1>Drink-page-table component</h1>
+  <p>TOP 10 drinks</p>
+  <button (click)="onReloadButtonClick()">Show drink list</button>
+  <table>
+    <tr>
+      <th>Name</th>
+      <th>Id</th>
+      <th>Img</th>
+    </tr>
+    <tr *ngFor="let drink of drinks">
+      <td> {{drink.strDrink}}</td>
+      <td> {{drink.idDrink}}</td>
+      <td> <img src="{{drink.strDrinkThumb}}" alt="" width="100px" height="100px"></td>
+    </tr>
+  </table>
+</div>

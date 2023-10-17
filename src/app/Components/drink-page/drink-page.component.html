@@ -1,0 +1,8 @@
+<div>
+  <h1>Drink-page component</h1>
+
+  <ng-container *ngIf="drinks">
+    <kno-drink-page-table [drinks]="drinks" (reload)="onTableReload()"></kno-drink-page-table>
+  </ng-container>
+
+</div>

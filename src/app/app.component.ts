@@ -10,8 +10,6 @@ export class AppComponent {
 
   name: string = 'gian franco'
 
-  drink: string = ''
-
   constructor(private readonly drinkService: DrinkService) {
 
   }
@@ -24,8 +22,6 @@ export class AppComponent {
     console.log('xxxCiao hai cliccato', event)
   }
 
-  onDrinkButtonClick() {
-    this.drinkService.getRandomCocktail$().subscribe(dto => this.drink = dto.drinks[0].strDrink)
-  }
+
 
 }

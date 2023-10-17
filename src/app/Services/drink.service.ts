@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { DrinksDto } from './DTOs/drink.dto';
+import { DrinksLookupDto } from './DTOs/drink-table.dto';
 
 @Injectable({
   providedIn: 'root'
@@ -10,9 +10,8 @@ export class DrinkService {
 
   constructor(private readonly http: HttpClient) { }
 
-  getRandomCocktail$(): Observable<DrinksDto> {
-    return this.http.get<DrinksDto>('https://www.thecocktaildb.com/api/json/v1/1/random.php');
+  getCocktailList$(): Observable<DrinksLookupDto> {
+    return this.http.get<DrinksLookupDto>('https://www.thecocktaildb.com/api/json/v1/1/filter.php?a=Alcoholic');
   }
-
 
 }
