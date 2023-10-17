@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { delay } from 'rxjs';
 import { DrinkLookupDto } from 'src/app/Services/DTOs/drink-table.dto';
 import { DrinkService } from 'src/app/Services/drink.service';
 
@@ -15,10 +16,10 @@ export class DrinkPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.drinkService.getCocktailList$().subscribe(dto => this.drinks = dto.drinks)
+    this.drinkService.getCocktailList$().pipe(delay(3000)).subscribe(dto => this.drinks = dto.drinks)
   }
 
   onTableReload() {
-    this.drinkService.getCocktailList$().subscribe(dto => this.drinks = dto.drinks)
+    this.drinkService.getCocktailList$().pipe(delay(3000)).subscribe(dto => this.drinks = dto.drinks)
   }
 }

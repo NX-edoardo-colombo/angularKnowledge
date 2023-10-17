@@ -9,6 +9,7 @@ import { EasyAComponent } from './Components/easy-a/easy-a.component';
 import { EasyBComponent } from './Components/easy-b/easy-b.component';
 import { DrinkPageTableComponent } from './Components/drink-page/drink-page-table/drink-page-table.component';
 import { DrinkPageComponent } from './Components/drink-page/drink-page.component';
+// import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { DrinkPageComponent } from './Components/drink-page/drink-page.component
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    // MatProgressSpinnerModule
   ],
   exports: [],
   providers: [],

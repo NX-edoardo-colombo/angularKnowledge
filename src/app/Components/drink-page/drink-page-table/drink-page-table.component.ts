@@ -9,7 +9,7 @@ import { DrinkLookupDto, DrinksLookupDto } from 'src/app/Services/DTOs/drink-tab
 export class DrinkPageTableComponent {
   @Input() drinks: DrinkLookupDto[] = [];
 
-  @Output() reload = new EventEmitter<MouseEvent>()
+  @Output() reload = new EventEmitter()
 
   onReloadButtonClick() {
     this.reload.emit()
