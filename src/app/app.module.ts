@@ -11,6 +11,10 @@ import { DrinkPageTableComponent } from './Components/drink-page/drink-page-tabl
 import { DrinkPageComponent } from './Components/drink-page/drink-page.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
+import {MatCardModule} from '@angular/material/card';
+import { DrinkPageCardComponent } from './Components/drink-page/drink-page-card/drink-page-card.component';
+import {MatButtonModule} from '@angular/material/button';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -18,14 +22,17 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
     EasyAComponent,
     EasyBComponent,
     DrinkPageTableComponent,
-    DrinkPageComponent
+    DrinkPageComponent,
+    DrinkPageCardComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatCardModule,
+    MatButtonModule
   ],
   exports: [],
   providers: [],

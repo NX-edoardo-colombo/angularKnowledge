@@ -14,6 +14,8 @@ export class DrinkPageComponent implements OnInit {
 
   tableStatus: 'NotLoaded' | 'Loaded' | 'Empty' = 'NotLoaded'
 
+  
+
   constructor(private readonly drinkService: DrinkService) {
   }
 
@@ -30,6 +32,8 @@ export class DrinkPageComponent implements OnInit {
       this.getCockatildPipe      
     ).subscribe()
   }
+
+
 
   private readonly getCockatildPipe = pipe(
     tap((dto: DrinksLookupDto) => this.tableStatus = dto.drinks.length > 0 ? 'Loaded' : 'Empty'),

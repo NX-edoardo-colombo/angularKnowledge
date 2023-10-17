@@ -1,7 +1,7 @@
 <div [ngSwitch]="tableStatus">
   <h1>Drink-page component</h1>
 
-  <ng-container *ngSwitchCase="'Loaded'">
+  <!-- <ng-container *ngSwitchCase="'Loaded'">
     <kno-drink-page-table [drinks]="drinks!" (reload)="onTableReload()"></kno-drink-page-table>
   </ng-container>
 
@@ -12,6 +12,10 @@
   <ng-container *ngSwitchDefault> 
     <mat-spinner></mat-spinner>
      </ng-container>
+ -->
+ <div class="flexContainer" >
+  <kno-drink-page-card *ngFor="let drink of drinks" [id]="drink.idDrink" [imgSrc]="drink.strDrinkThumb" [name]="drink.strDrink"></kno-drink-page-card>
+ </div>
 
 </div>
 
