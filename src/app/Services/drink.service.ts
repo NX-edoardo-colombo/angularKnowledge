@@ -15,12 +15,11 @@ export class DrinkService {
 
   getCocktailList$(): Observable<DrinksLookupDto> {
     //return of({drinks:[]}) 
-    return this.http.get<DrinksLookupDto>('https://www.thecocktaildb.com/api/json/v1/1/filter.php?a=Alcoholic').pipe(delay(500));
+    return this.http.get<DrinksLookupDto>('https://www.thecocktaildb.com/api/json/v1/1/filter.php?a=Alcoholic');
   }
 
   getCocktailCard$(strDrink: string): Observable<DrinkCardDto> {
-    return this.http.get<DrinkCardDto>('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${strDrink}') 
-    console.log('Service', strDrink);
+    return this.http.get<DrinkCardDto>('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=' + strDrink)
   }
 
   
