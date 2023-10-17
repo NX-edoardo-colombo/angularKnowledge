@@ -10,8 +10,7 @@ import { EasyBComponent } from './Components/easy-b/easy-b.component';
 import { DrinkPageTableComponent } from './Components/drink-page/drink-page-table/drink-page-table.component';
 import { DrinkPageComponent } from './Components/drink-page/drink-page.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
 @NgModule({
   declarations: [
     AppComponent,

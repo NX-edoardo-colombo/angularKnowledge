@@ -8,7 +8,7 @@
       <th>Name</th>
       <th>Img</th>
     </tr>
-    <tr *ngFor="let drink of drinks">
+    <tr *ngFor="let drink of drinks, ngForTrackBy: trackByFunction">
       <td> {{drink.idDrink}}</td>
       <td> {{drink.strDrink}}</td>
       <td> <img src="{{drink.strDrinkThumb}}" alt="" width="100px" height="100px"></td>
