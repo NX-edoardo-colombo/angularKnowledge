@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subject, delay, filter, map, pipe, takeUntil, tap } from 'rxjs';
+import { Subject, delay, filter, map, of, pipe, switchMap, takeUntil, tap } from 'rxjs';
 import { DrinkLookupDto, DrinksLookupDto } from 'src/app/Services/DTOs/drink-table.dto';
 import { DrinkService } from 'src/app/Services/drink.service';
 
@@ -14,10 +14,8 @@ export class DrinkPageComponent implements OnInit {
 
   tableStatus: 'NotLoaded' | 'Loaded' | 'Empty' = 'NotLoaded'
 
-
   constructor(private readonly drinkService: DrinkService) {
   }
-
 
   ngOnInit(): void {
     this.drinkService.getCocktailList$().pipe(this.getCockatildPipe).subscribe() 
@@ -25,19 +23,16 @@ export class DrinkPageComponent implements OnInit {
 
   onTableReload() {
     this.tableStatus = 'NotLoaded'
-    this.drinkService.getCocktailList$().pipe(this.getCockatildPipe).subscribe()
+
+    of(void 0).pipe(
+      tap(() => this.tableStatus = 'NotLoaded'),      
+      switchMap(() => this.drinkService.getCocktailList$()),
+      this.getCockatildPipe      
+    ).subscribe()
   }
 
   private readonly getCockatildPipe = pipe(
-  tap((dto: DrinksLookupDto) => {
-    if (dto.drinks.length > 0) {
-
-      this.tableStatus = 'Loaded'
-      console.log('one ' + this.tableStatus)
-    }else if (dto.drinks.length <= 0) {
-      this.tableStatus = 'Empty'
-    }
-
-    this.drinks = dto.drinks
-  }))
+    tap((dto: DrinksLookupDto) => this.tableStatus = dto.drinks.length > 0 ? 'Loaded' : 'Empty'),
+    tap((dto: DrinksLookupDto) => this.drinks = dto.drinks)
+  )
 }
