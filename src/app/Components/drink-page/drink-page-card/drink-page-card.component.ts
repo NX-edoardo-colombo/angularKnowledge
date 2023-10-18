@@ -16,24 +16,21 @@ export class DrinkPageCardComponent /* implements OnInit */{
 
   instruction: string | undefined
 
-  drinkCard: DrinkCardDto[] = []
+  drinkCard: DrinkCardDto[] | undefined
 
   firstCard: boolean = true
 
   constructor(private readonly drinkService: DrinkService) {
   }
 
-
-  /* ngOnInit(): void  {
-    console.log('imgSrc', this.imgSrc)
-  } */
-
     onInfoClicked() {
-      
-      
-      /* this.firstCard = false
-      this.instruction = this.drinkCard[0].strInstructions */
-  }
+      if(this.instruction ==undefined){
+        this.drinkService.getCocktailCard$(this.name!).pipe(
+          tap((dto : DrinkCardDto) => this.instruction = dto.drinks[0].strInstructions)
+        ).subscribe() 
+      }
+      this.firstCard = false
+    }
 
     onBackClicked() {
       this.firstCard = true
