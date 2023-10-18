@@ -4,36 +4,33 @@ import { DrinkService } from 'src/app/Services/drink.service';
 import { DrinkCardDto } from 'src/app/Services/DTOs/drink-card.dto';
 
 @Component({
-  selector: 'kno-drink-page-card',
+  selector: 'kno-drink-page-card [id] [name] [imgSrc]',
   templateUrl: './drink-page-card.component.html',
   styleUrls: ['./drink-page-card.component.scss']
 })
-export class DrinkPageCardComponent /* implements OnInit */{
- 
-  @Input() name: string | undefined
-  @Input() id: string |undefined
-  @Input() imgSrc: string | undefined
+export class DrinkPageCardComponent /* implements OnInit */ {
 
-  instruction: string | undefined
+  @Input() id!: string
+  @Input() name!: string
+  @Input() imgSrc!: string
 
-  drinkCard: DrinkCardDto[] | undefined
+  shouldShowInfo = false
 
-  firstCard: boolean = true
+  drinkInfo: string | undefined
 
   constructor(private readonly drinkService: DrinkService) {
   }
 
-    onInfoClicked() {
-      if(this.instruction ==undefined){
-        this.drinkService.getCocktailCard$(this.name!).pipe(
-          tap((dto : DrinkCardDto) => this.instruction = dto.drinks[0].strInstructions)
-        ).subscribe() 
-      }
-      this.firstCard = false
-    }
+  onInfoClicked() {
+    if (!this.drinkInfo)
+      this.drinkService.getCocktailCard$(this.name).pipe(
+        tap(dto => this.drinkInfo = dto.drinks[0].strInstructions),
+        tap(() => this.shouldShowInfo = false)
+      ).subscribe()
+  }
 
-    onBackClicked() {
-      this.firstCard = true
-    }
+  onBackClicked() {
+    this.shouldShowInfo = true
+  }
 
 }

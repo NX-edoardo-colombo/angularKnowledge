@@ -10,26 +10,23 @@ import { DrinkService } from 'src/app/Services/drink.service';
 })
 export class DrinkPageComponent implements OnInit {
 
-  drinks: DrinkLookupDto[]  | undefined
-
+  drinks: DrinkLookupDto[] | undefined
   tableStatus: 'NotLoaded' | 'Loaded' | 'Empty' = 'NotLoaded'
-
-  
 
   constructor(private readonly drinkService: DrinkService) {
   }
 
   ngOnInit(): void {
-    this.drinkService.getCocktailList$().pipe(this.getCockatildPipe).subscribe() 
+    this.drinkService.getCocktailList$().pipe(this.getCockatildPipe).subscribe()
   }
 
   onTableReload() {
     this.tableStatus = 'NotLoaded'
 
     of(void 0).pipe(
-      tap(() => this.tableStatus = 'NotLoaded'),      
+      tap(() => this.tableStatus = 'NotLoaded'),
       switchMap(() => this.drinkService.getCocktailList$()),
-      this.getCockatildPipe      
+      this.getCockatildPipe
     ).subscribe()
   }
 

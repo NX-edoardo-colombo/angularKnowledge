@@ -1,23 +1,13 @@
 <div [ngSwitch]="tableStatus">
   <h1>Drink-page component</h1>
 
-  <!-- <ng-container *ngSwitchCase="'Loaded'">
-    <kno-drink-page-table [drinks]="drinks!" (reload)="onTableReload()"></kno-drink-page-table>
-  </ng-container>
+  <div class="flexContainer">
 
-  <ng-container *ngSwitchCase="'Empty'">
-    <h1>Nessun elemento trovato</h1>
-  </ng-container>
+    <ng-container *ngFor="let drink of drinks">
+      <kno-drink-page-card [id]="drink.idDrink" [imgSrc]="drink.strDrinkThumb" [name]="drink.strDrink">
+      </kno-drink-page-card>
+    </ng-container>
 
-  <ng-container *ngSwitchDefault> 
-    <mat-spinner></mat-spinner>
-     </ng-container>
- -->
- <div class="flexContainer" >
-  <kno-drink-page-card *ngFor="let drink of drinks" [id]="drink.idDrink" [imgSrc]="drink.strDrinkThumb" [name]="drink.strDrink"></kno-drink-page-card>
- </div>
+  </div>
 
 </div>
-
-
-
