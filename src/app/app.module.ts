@@ -14,6 +14,9 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
 import {MatCardModule} from '@angular/material/card';
 import { DrinkPageCardComponent } from './Components/drink-page/drink-page-card/drink-page-card.component';
 import {MatButtonModule} from '@angular/material/button';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+import {MatIconModule} from '@angular/material/icon';
+import {MatChipsModule} from '@angular/material/chips';
 
 @NgModule({
   declarations: [
@@ -32,7 +35,10 @@ import {MatButtonModule} from '@angular/material/button';
     BrowserAnimationsModule,
     MatProgressSpinnerModule,
     MatCardModule,
-    MatButtonModule
+    MatButtonModule,
+    MatProgressBarModule,
+    MatIconModule,
+    MatChipsModule
   ],
   exports: [],
   providers: [],

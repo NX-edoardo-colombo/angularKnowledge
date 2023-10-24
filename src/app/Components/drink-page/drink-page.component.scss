@@ -1,11 +1,7 @@
-div {
-    border: 1px solid black;
-    padding: 1%;
-}
-
 .flexContainer {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    justify-content: center;
     gap: 10px;
 }

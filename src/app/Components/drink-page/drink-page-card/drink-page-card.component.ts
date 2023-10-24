@@ -1,7 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { of, switchMap, tap, pipe } from 'rxjs';
+import { of, switchMap, tap, pipe, delay } from 'rxjs';
 import { DrinkService } from 'src/app/Services/drink.service';
-import { DrinkCardDto } from 'src/app/Services/DTOs/drink-card.dto';
+import { DrinksCardDto } from 'src/app/Services/DTOs/drink-card.dto';
+import { Drink } from 'src/app/Models/drink.model';
 
 @Component({
   selector: 'kno-drink-page-card [id] [name] [imgSrc]',
@@ -18,19 +19,34 @@ export class DrinkPageCardComponent /* implements OnInit */ {
 
   drinkInfo: string | undefined
 
+  drinkIngredients: string[] | undefined
+
+  drinkObj!: Drink; 
+
   constructor(private readonly drinkService: DrinkService) {
   }
 
   onInfoClicked() {
     if (!this.drinkInfo)
-      this.drinkService.getCocktailCard$(this.name).pipe(
-        tap(dto => this.drinkInfo = dto.drinks[0].strInstructions),
-        tap(() => this.shouldShowInfo = false)
-      ).subscribe()
+      this.drinkService.getCocktail$(this.name).pipe(
+        delay(1500),
+        tap(dto => this.drinkObj = dto),
+        tap(() => this.drinkInfo = this.drinkObj.instructions),
+        tap(() => this.drinkIngredients = this.drinkObj.ingredients),
+        tap(() => console.log(this.drinkObj)),
+        ).subscribe()
+        
+      
+      console.log('drinkinfo finali ', this.drinkInfo);
+      console.log('drinkinfo finali ingr ', this.drinkInfo);
+      
+      this.shouldShowInfo = true
+      
+      
   }
 
   onBackClicked() {
-    this.shouldShowInfo = true
+    this.shouldShowInfo = false
   }
 
 }

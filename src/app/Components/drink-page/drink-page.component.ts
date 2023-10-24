@@ -31,7 +31,6 @@ export class DrinkPageComponent implements OnInit {
   }
 
 
-
   private readonly getCockatildPipe = pipe(
     tap((dto: DrinksLookupDto) => this.tableStatus = dto.drinks.length > 0 ? 'Loaded' : 'Empty'),
     tap((dto: DrinksLookupDto) => this.drinks = dto.drinks)

@@ -1,34 +1,30 @@
-<mat-card class="example-card" *ngIf="!shouldShowInfo; else ingredientCard">
+<mat-card class="example-card">
   <mat-card-header>
-    <!-- <div mat-card-avatar class="example-header-image"></div> -->
     <mat-card-title>{{name}}</mat-card-title>
     <mat-card-subtitle>{{id}}</mat-card-subtitle>
   </mat-card-header>
-  <img mat-card-image src="{{imgSrc}}" alt="Photo of {{name}}">
-  <mat-card-content>
-    <!-- <p>
-        The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
-        A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally
-        bred for hunting.
-      </p> -->
+  <img mat-card-image *ngIf="!shouldShowInfo" src="{{imgSrc}}" alt="Photo of {{name}}">
+  <mat-card-content >
+    <p *ngIf="shouldShowInfo">{{drinkInfo}}</p>
+    <mat-chip-listbox *ngIf="shouldShowInfo">
+      <mat-chip  *ngFor="let ingredient of drinkIngredients">
+        {{ingredient}}
+      </mat-chip>
+    </mat-chip-listbox>
   </mat-card-content>
   <mat-card-actions>
-    <button mat-button (click)="onInfoClicked()">SHOW INSTRUCTIONS</button>
-    <!-- <button mat-button>SHARE</button> -->
+    <div class="example-button-container" >
+      <button *ngIf="!shouldShowInfo" mat-fab aria-label="SHOW INSTRUCTIONS" (click)="onInfoClicked()">
+        <mat-icon>info</mat-icon>
+      </button>
+    </div>
+    <div class="example-button-container" >
+      <button *ngIf="drinkInfo && shouldShowInfo" mat-fab aria-label="GO BACK" (click)="onBackClicked()">
+        <mat-icon>undo icon</mat-icon>
+      </button>
+    </div>
   </mat-card-actions>
+  <mat-card-footer *ngIf="!drinkInfo && shouldShowInfo">
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  </mat-card-footer>
 </mat-card>
-
-<ng-template #ingredientCard>
-  <mat-card class="example-card">
-    <mat-card-header>
-      <mat-card-title>{{name}}</mat-card-title>
-      <mat-card-subtitle>{{id}}</mat-card-subtitle>
-    </mat-card-header>
-    <mat-card-content>
-      <p>{{drinkInfo}}</p>
-    </mat-card-content>
-    <mat-card-actions>
-      <button mat-button (click)="onBackClicked()">GO BACK</button>
-    </mat-card-actions>
-  </mat-card>
-</ng-template>

@@ -1,4 +1,4 @@
-export interface DrinkCardDto {
+export interface DrinksCardDto {
     drinks: DrinkCardDto[]
   }
   
@@ -23,10 +23,10 @@ export interface DrinkCardDto {
     strIngredient1: string
     strIngredient2: string
     strIngredient3: string
-    strIngredient4?: string
-    strIngredient5?: string
-    strIngredient6?: string
-    strIngredient7?: string
+    strIngredient4: string
+    strIngredient5: string
+    strIngredient6: string
+    strIngredient7: string
     strIngredient8: any
     strIngredient9: any
     strIngredient10: any
