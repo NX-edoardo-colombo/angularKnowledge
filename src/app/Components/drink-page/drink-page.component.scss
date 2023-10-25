@@ -5,3 +5,22 @@
     justify-content: center;
     gap: 10px;
 }
+
+h1 {
+    color: white;
+    text-align: center;
+    font-size: 50px;
+    padding: 2%;
+}
+
+.bodyDiv {
+    background-color: #222831;
+}
+
+:host kno-drink-page-card{
+    display: block;
+    height: 540px;
+    width: 400px;
+    border-radius: 15px;
+    outline: 0px;
+}

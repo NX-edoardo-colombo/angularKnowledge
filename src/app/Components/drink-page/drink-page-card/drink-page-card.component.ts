@@ -32,17 +32,9 @@ export class DrinkPageCardComponent /* implements OnInit */ {
         delay(1500),
         tap(dto => this.drinkObj = dto),
         tap(() => this.drinkInfo = this.drinkObj.instructions),
-        tap(() => this.drinkIngredients = this.drinkObj.ingredients),
-        tap(() => console.log(this.drinkObj)),
+        tap(() => this.drinkIngredients = this.drinkObj.ingredients)
         ).subscribe()
-        
-      
-      console.log('drinkinfo finali ', this.drinkInfo);
-      console.log('drinkinfo finali ingr ', this.drinkInfo);
-      
       this.shouldShowInfo = true
-      
-      
   }
 
   onBackClicked() {
