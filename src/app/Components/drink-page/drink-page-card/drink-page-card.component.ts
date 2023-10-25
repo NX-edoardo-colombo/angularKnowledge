@@ -15,13 +15,15 @@ export class DrinkPageCardComponent /* implements OnInit */ {
   @Input() name!: string
   @Input() imgSrc!: string
 
+  @Output() newCardOpened = new EventEmitter<string>();
+
   shouldShowInfo = false
 
   drinkInfo: string | undefined
 
   drinkIngredients: string[] | undefined
 
-  drinkObj!: Drink; 
+  drinkObj!: Drink;
 
   constructor(private readonly drinkService: DrinkService) {
   }
@@ -34,7 +36,8 @@ export class DrinkPageCardComponent /* implements OnInit */ {
         tap(() => this.drinkInfo = this.drinkObj.instructions),
         tap(() => this.drinkIngredients = this.drinkObj.ingredients)
         ).subscribe()
-      this.shouldShowInfo = true
+        this.shouldShowInfo = true;
+        
   }
 
   onBackClicked() {

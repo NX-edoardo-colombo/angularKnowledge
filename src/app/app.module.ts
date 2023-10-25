@@ -11,12 +11,14 @@ import { DrinkPageTableComponent } from './Components/drink-page/drink-page-tabl
 import { DrinkPageComponent } from './Components/drink-page/drink-page.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
-import {MatCardModule} from '@angular/material/card';
+import { MatCardModule } from '@angular/material/card';
 import { DrinkPageCardComponent } from './Components/drink-page/drink-page-card/drink-page-card.component';
-import {MatButtonModule} from '@angular/material/button';
-import {MatProgressBarModule} from '@angular/material/progress-bar';
-import {MatIconModule} from '@angular/material/icon';
-import {MatChipsModule} from '@angular/material/chips';
+import { MatButtonModule } from '@angular/material/button';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatIconModule } from '@angular/material/icon';
+import { MatChipsModule } from '@angular/material/chips';
+import { CardHighlightDirective } from './Components/drink-page/drink-page-card/card-highlight.directive';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,8 @@ import {MatChipsModule} from '@angular/material/chips';
     EasyBComponent,
     DrinkPageTableComponent,
     DrinkPageComponent,
-    DrinkPageCardComponent
+    DrinkPageCardComponent,
+    CardHighlightDirective
   ],
   imports: [
     BrowserModule,
@@ -38,10 +41,11 @@ import {MatChipsModule} from '@angular/material/chips';
     MatButtonModule,
     MatProgressBarModule,
     MatIconModule,
-    MatChipsModule
+    MatChipsModule,
+    MatPaginatorModule,
   ],
   exports: [],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+  export class AppModule { }

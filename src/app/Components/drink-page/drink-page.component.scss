@@ -7,7 +7,7 @@
 }
 
 h1 {
-    color: white;
+    color: #EEEEEE;
     text-align: center;
     font-size: 50px;
     padding: 2%;
@@ -23,4 +23,9 @@ h1 {
     width: 400px;
     border-radius: 15px;
     outline: 0px;
+}
+
+mat-paginator {
+    background-color: #393E46;
+    color: #EEEEEE;
 }

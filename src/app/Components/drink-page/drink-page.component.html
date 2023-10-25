@@ -2,12 +2,17 @@
   <h1>Cocktail DB</h1>
 
   <div class="flexContainer">
-
-    <ng-container *ngFor="let drink of drinks">
+    <ng-container *ngFor="let drink of pageSlice">
       <kno-drink-page-card [id]="drink.idDrink" [imgSrc]="drink.strDrinkThumb" [name]="drink.strDrink">
       </kno-drink-page-card>
     </ng-container>
-
   </div>
+  <mat-paginator #drinkCardPaginator 
+                  [length]="pageLength" 
+                  [pageSize]="10" 
+                  [pageSizeOptions]="[5, 10, 25, 50, 100]"
+                  aria-label="Select page" 
+                  (page)="OnPageChange($event)">
+  </mat-paginator>
 
 </div>

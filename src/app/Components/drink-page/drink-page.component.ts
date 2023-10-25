@@ -1,4 +1,5 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { Subject, delay, filter, map, of, pipe, switchMap, takeUntil, tap } from 'rxjs';
 import { DrinkLookupDto, DrinksLookupDto } from 'src/app/Services/DTOs/drink-table.dto';
 import { DrinkService } from 'src/app/Services/drink.service';
@@ -12,6 +13,9 @@ export class DrinkPageComponent implements OnInit {
 
   drinks: DrinkLookupDto[] | undefined
   tableStatus: 'NotLoaded' | 'Loaded' | 'Empty' = 'NotLoaded'
+  pageLength: number = 0
+  pageEvent: PageEvent = new PageEvent();
+  pageSlice: any
 
   constructor(private readonly drinkService: DrinkService) {
   }
@@ -20,7 +24,26 @@ export class DrinkPageComponent implements OnInit {
     this.drinkService.getCocktailList$().pipe(this.getCockatildPipe).subscribe()
   }
 
-  onTableReload() {
+  OnPageChange(event: PageEvent) {
+    const startIndex = event.pageIndex * event.pageSize
+    let endIndex = startIndex + event.pageSize
+    if (endIndex > this.pageLength) {
+      endIndex = this.pageLength
+    }
+    this.pageSlice = this.drinks?.slice(startIndex, endIndex)
+  }
+
+  private readonly getCockatildPipe = pipe(
+    tap((dto: DrinksLookupDto) => this.tableStatus = dto.drinks.length > 0 ? 'Loaded' : 'Empty'),
+    tap((dto: DrinksLookupDto) => this.drinks = dto.drinks),
+    tap((dto: DrinksLookupDto) => this.pageLength = dto.drinks.length),
+    tap(() => this.pageSlice = this.drinks?.slice(0, 10))
+  )
+
+
+
+
+  /*   onTableReload() {
     this.tableStatus = 'NotLoaded'
 
     of(void 0).pipe(
@@ -28,11 +51,5 @@ export class DrinkPageComponent implements OnInit {
       switchMap(() => this.drinkService.getCocktailList$()),
       this.getCockatildPipe
     ).subscribe()
-  }
-
-
-  private readonly getCockatildPipe = pipe(
-    tap((dto: DrinksLookupDto) => this.tableStatus = dto.drinks.length > 0 ? 'Loaded' : 'Empty'),
-    tap((dto: DrinksLookupDto) => this.drinks = dto.drinks)
-  )
+  } */
 }
