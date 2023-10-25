@@ -3,7 +3,7 @@
 
   <div class="flexContainer">
     <ng-container *ngFor="let drink of pageSlice">
-      <kno-drink-page-card [id]="drink.idDrink" [imgSrc]="drink.strDrinkThumb" [name]="drink.strDrink">
+      <kno-drink-page-card [id]="drink.idDrink" [imgSrc]="drink.strDrinkThumb" [name]="drink.strDrink" [shouldShowInfo]="openCardId === drink.idDrink" (cardClicked)="onCardClicked(drink.idDrink)">
       </kno-drink-page-card>
     </ng-container>
   </div>

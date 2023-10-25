@@ -5,12 +5,12 @@
   </mat-card-header>
   <img mat-card-image *ngIf="!shouldShowInfo" src="{{imgSrc}}" alt="Photo of {{name}}">
   <mat-card-content >
-    <p class="drinkInstruction" *ngIf="shouldShowInfo">{{drinkInfo}}</p>
-    <mat-chip-listbox class="mat-mdc-chip-set-stacked" *ngIf="shouldShowInfo">
-      <mat-chip class="chipElement" *ngFor="let ingredient of drinkIngredients">
-        {{ingredient}}
-      </mat-chip>
-    </mat-chip-listbox>
+    <p class="drinkInstruction" *ngIf=" shouldShowInfo">{{drinkInfo}}</p>
+    <mat-list *ngIf="shouldShowInfo">
+      <mat-list-item *ngFor="let ingredient of drinkIngredients">
+        <mat-chip class="chipElement">{{ ingredient }}</mat-chip>
+      </mat-list-item>
+    </mat-list>
   </mat-card-content>
   <mat-card-actions>
     <div class="example-button-container" >

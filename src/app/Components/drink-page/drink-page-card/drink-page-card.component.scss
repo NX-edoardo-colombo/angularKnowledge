@@ -48,6 +48,11 @@ button {
   color: #EEEEEE !important;
 }
 
+.vertical-chip-list {
+  display: flex;
+  flex-direction: column;
+}
+
 .cardTitle {
   color: #EEEEEE !important;
 }

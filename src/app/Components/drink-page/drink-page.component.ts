@@ -1,3 +1,4 @@
+import { ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { Subject, delay, filter, map, of, pipe, switchMap, takeUntil, tap } from 'rxjs';
@@ -7,21 +8,32 @@ import { DrinkService } from 'src/app/Services/drink.service';
 @Component({
   selector: 'kno-drink-page',
   templateUrl: './drink-page.component.html',
-  styleUrls: ['./drink-page.component.scss']
+  styleUrls: ['./drink-page.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DrinkPageComponent implements OnInit {
 
   drinks: DrinkLookupDto[] | undefined
   tableStatus: 'NotLoaded' | 'Loaded' | 'Empty' = 'NotLoaded'
   pageLength: number = 0
-  pageEvent: PageEvent = new PageEvent();
+  pageEvent: PageEvent = new PageEvent()
   pageSlice: any
 
-  constructor(private readonly drinkService: DrinkService) {
+  openCardId: string | null = null;
+
+  constructor(private readonly drinkService: DrinkService, private readonly cdr: ChangeDetectorRef) {
   }
 
   ngOnInit(): void {
-    this.drinkService.getCocktailList$().pipe(this.getCockatildPipe).subscribe()
+    this.drinkService.getCocktailList$().pipe(this.getCockatildPipe).subscribe(_ => this.cdr.markForCheck())
+  }
+
+  onCardClicked(cardId: string) {
+    if (this.openCardId === cardId) {
+      this.openCardId = null;   
+    } else {
+      this.openCardId = cardId;
+    }
   }
 
   OnPageChange(event: PageEvent) {

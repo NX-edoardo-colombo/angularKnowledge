@@ -1,23 +1,25 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { of, switchMap, tap, pipe, delay } from 'rxjs';
 import { DrinkService } from 'src/app/Services/drink.service';
 import { DrinksCardDto } from 'src/app/Services/DTOs/drink-card.dto';
 import { Drink } from 'src/app/Models/drink.model';
+import { ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'kno-drink-page-card [id] [name] [imgSrc]',
   templateUrl: './drink-page-card.component.html',
-  styleUrls: ['./drink-page-card.component.scss']
+  styleUrls: ['./drink-page-card.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DrinkPageCardComponent /* implements OnInit */ {
+export class DrinkPageCardComponent /* implements OnInit */ implements OnChanges {
 
   @Input() id!: string
   @Input() name!: string
   @Input() imgSrc!: string
 
-  @Output() newCardOpened = new EventEmitter<string>();
+  @Input() shouldShowInfo: boolean = false;
 
-  shouldShowInfo = false
+  @Output() cardClicked: EventEmitter<string> = new EventEmitter<string>();
 
   drinkInfo: string | undefined
 
@@ -25,7 +27,11 @@ export class DrinkPageCardComponent /* implements OnInit */ {
 
   drinkObj!: Drink;
 
-  constructor(private readonly drinkService: DrinkService) {
+  constructor(private readonly drinkService: DrinkService, private readonly cdr: ChangeDetectorRef) {
+  }
+
+  ngOnChanges() {
+    
   }
 
   onInfoClicked() {
@@ -35,13 +41,12 @@ export class DrinkPageCardComponent /* implements OnInit */ {
         tap(dto => this.drinkObj = dto),
         tap(() => this.drinkInfo = this.drinkObj.instructions),
         tap(() => this.drinkIngredients = this.drinkObj.ingredients)
-        ).subscribe()
-        this.shouldShowInfo = true;
-        
+        ).subscribe(_ => this.cdr.markForCheck())
+        this.cardClicked.emit(this.id);
   }
 
   onBackClicked() {
-    this.shouldShowInfo = false
+    this.cardClicked.emit(this.id);
   }
 
 }
