@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, OnChanges } from '@angular/core';
 import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { Subject, delay, filter, map, of, pipe, switchMap, takeUntil, tap } from 'rxjs';
+import { BehaviorSubject, Subject, delay, filter, map, of, pipe, switchMap, takeUntil, tap } from 'rxjs';
 import { Drink } from 'src/app/Models/drink.model';
 import { DrinkLookupDto, DrinksLookupDto } from 'src/app/Services/DTOs/drink-table.dto';
 import { DrinkService } from 'src/app/Services/drink.service';
@@ -17,18 +17,15 @@ export class DrinkPageComponent implements OnInit, OnChanges {
 
   drinks: DrinkLookupDto[] | undefined
   tableStatus: 'NotLoaded' | 'Loaded' | 'Empty' = 'NotLoaded'
-  pageLength: number = 0
-  pageEvent: PageEvent = new PageEvent()
-  pageSlice: any
+
+  currentPageIndex: number = 0
+  currentPageSize: number = 10
+
   openCardId: string | null = null;
 
-  drinkInfo: Drink | undefined | null
+  currentCardInfo$ = new BehaviorSubject<Drink | null>(null)
 
-  currentCardInfo$ = new Subject<Drink | null>()
-
-  isOpen: boolean = false
-
-  cardState: { cardId: string, drink: Drink | null } | null = null;
+  pageSizeOptions = [5, 10, 25, 50, 100]
 
   constructor(private readonly drinkService: DrinkService, private readonly cdr: ChangeDetectorRef) {
   }
@@ -38,54 +35,48 @@ export class DrinkPageComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
-    this.drinkService.getCocktailList$(0, 100).pipe(this.getCockatildPipe).subscribe()
+    this.loadBoard$().subscribe();
   }
 
   ngOnChanges() {
 
   }
 
-  onCardChangeStatus(cardId: string, drink: string) {
+  onCardChangeStatus(cardId: string, status: cardStatus) {
+
     this.currentCardInfo$.next(null)
 
+    if (status == 'default') this.openCardId = null
+    else if (status == 'info') {
+      this.openCardId = cardId
 
-    if (!this.drinkInfo) {
       this.drinkService.getCocktail$(cardId).pipe(
         tap(dto => this.currentCardInfo$.next(dto))
       ).subscribe()
     }
 
-
-    if (this.openCardId === cardId)
-      this.openCardId = null
-    else
-      this.openCardId = cardId
   }
 
   OnPageChange(event: PageEvent) {
 
-    this.drinkService.getCocktailList$(event.pageIndex, event.pageSize).pipe(
-      tap(dto => this.drinks = dto.drinks),
-    ).subscribe();
+    this.currentPageIndex = event.pageIndex
+    this.currentPageSize = event.pageSize
 
-
-
-
+    this.loadBoard$().subscribe();
   }
 
-  private readonly getCockatildPipe = pipe(
-    tap((dto: DrinksLookupDto) => this.tableStatus = dto.drinks.length > 0 ? 'Loaded' : 'Empty'),
-    tap((dto: DrinksLookupDto) => this.drinks = dto.drinks),
-    tap((dto: DrinksLookupDto) => this.pageLength = dto.drinks.length)
-  )
+  private loadBoard$() {
+    return this.drinkService.getCocktailList$(this.currentPageIndex, this.currentPageSize)
+      .pipe(
+        tap((dto: DrinksLookupDto) => this.tableStatus = dto.drinks.length > 0 ? 'Loaded' : 'Empty'),
+        tap((dto: DrinksLookupDto) => this.drinks = dto.drinks)
+      )
+  }
 
-  /*   onTableReload() {
-    this.tableStatus = 'NotLoaded'
+  // private loadBoard$ =     this.drinkService.getCocktailList$(this.currentPageIndex, this.currentPageSize)
+  //     .pipe(
+  //       tap((dto: DrinksLookupDto) => this.tableStatus = dto.drinks.length > 0 ? 'Loaded' : 'Empty'),
+  //       tap((dto: DrinksLookupDto) => this.drinks = dto.drinks)
+  //     )
 
-    of(void 0).pipe(
-      tap(() => this.tableStatus = 'NotLoaded'),
-      switchMap(() => this.drinkService.getCocktailList$()),
-      this.getCockatildPipe
-    ).subscribe()
-  } */
 }

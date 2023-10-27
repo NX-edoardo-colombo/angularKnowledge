@@ -20,7 +20,6 @@ import { MatChipsModule } from '@angular/material/chips';
 import { CardHighlightDirective } from './Components/drink-page/drink-page-card/card-highlight.directive';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatListModule } from '@angular/material/list';
-import { ProvaComponent } from './prova/prova.component';
 
 @NgModule({
   declarations: [
@@ -31,8 +30,7 @@ import { ProvaComponent } from './prova/prova.component';
     DrinkPageTableComponent,
     DrinkPageComponent,
     DrinkPageCardComponent,
-    CardHighlightDirective,
-    ProvaComponent
+    CardHighlightDirective
   ],
   imports: [
     BrowserModule,
@@ -52,4 +50,4 @@ import { ProvaComponent } from './prova/prova.component';
   providers: [],
   bootstrap: [AppComponent]
 })
-  export class AppModule { }
+export class AppModule { }
