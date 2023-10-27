@@ -2,17 +2,27 @@
   <h1>Cocktail DB</h1>
 
   <div class="flexContainer">
-    <ng-container *ngFor="let drink of pageSlice">
-      <kno-drink-page-card [id]="drink.idDrink" [imgSrc]="drink.strDrinkThumb" [name]="drink.strDrink" [shouldShowInfo]="openCardId === drink.idDrink" (cardClicked)="onCardClicked(drink.idDrink)">
+    <ng-container *ngFor="let drink of drinks">
+      <kno-drink-page-card [id]="drink.idDrink" [imgSrc]="drink.strDrinkThumb" [name]="drink.strDrink"
+        [status]="openCardId === drink.idDrink? 'info' : 'default' " [info]="(currentCardInfo$ | async) "
+        (changeStatus)="onCardChangeStatus(drink.idDrink, $event)">
       </kno-drink-page-card>
     </ng-container>
   </div>
-  <mat-paginator #drinkCardPaginator 
-                  [length]="pageLength" 
-                  [pageSize]="10" 
-                  [pageSizeOptions]="[5, 10, 25, 50, 100]"
-                  aria-label="Select page" 
-                  (page)="OnPageChange($event)">
+  <mat-paginator #drinkCardPaginator [length]="pageLength" [pageSize]="100" [pageSizeOptions]="[5, 10, 25, 50, 100]"
+    aria-label="Select page" (page)="OnPageChange($event)">
   </mat-paginator>
 
 </div>
+
+
+<!-- 
+  <kno-drink-page-card [id]="drink.idDrink" 
+                           [imgSrc]="drink.strDrinkThumb" 
+                           [name]="drink.strDrink" 
+                           [shouldShowInfo]="openCardId === drink.idDrink" 
+                           [info]="currentCardInfo$ | async"
+                           (cardClicked)="onCardClicked(drink.idDrink)"
+                           (changeStatus)="onCardChangeStatus(drink.idDrink, $event)">
+  </kno-drink-page-card> 
+-->

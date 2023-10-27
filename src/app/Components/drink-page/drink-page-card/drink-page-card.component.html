@@ -3,28 +3,29 @@
     <mat-card-title class="cardSubtitle">{{name}}</mat-card-title>
     <mat-card-subtitle class="cardSubtitle">{{id}}</mat-card-subtitle>
   </mat-card-header>
-  <img mat-card-image *ngIf="!shouldShowInfo" src="{{imgSrc}}" alt="Photo of {{name}}">
-  <mat-card-content >
-    <p class="drinkInstruction" *ngIf=" shouldShowInfo">{{drinkInfo}}</p>
-    <mat-list *ngIf="shouldShowInfo">
-      <mat-list-item *ngFor="let ingredient of drinkIngredients">
-        <mat-chip class="chipElement">{{ ingredient }}</mat-chip>
+  <img mat-card-image *ngIf="this.status == 'default'" src="{{imgSrc}}" alt="Photo of {{name}}">
+  <mat-card-content>
+    <p class="drinkInstruction" *ngIf="this.status == 'info'">{{info?.instructions}}</p>
+    <mat-list *ngIf="this.status == 'info' && info">
+      <mat-list-item *ngFor="let ingredient of info!.ingredients">
+        <mat-chip class="chipElement">{{ ingredient! }}</mat-chip>
       </mat-list-item>
     </mat-list>
   </mat-card-content>
   <mat-card-actions>
-    <div class="example-button-container" >
-      <button class="infoButton" *ngIf="!shouldShowInfo" mat-fab aria-label="SHOW INSTRUCTIONS" (click)="onInfoClicked()">
+    <div class="example-button-container">
+      <button class="infoButton" *ngIf="this.status == 'default'" mat-fab aria-label="SHOW INSTRUCTIONS"
+        (click)="onInfoClicked()">
         <mat-icon>info</mat-icon>
       </button>
     </div>
-    <div class="example-button-container" >
-      <button *ngIf="drinkInfo && shouldShowInfo" mat-fab aria-label="GO BACK" (click)="onBackClicked()">
+    <div class="example-button-container">
+      <button *ngIf="this.status == 'info'" mat-fab aria-label="GO BACK" (click)="onBackClicked()">
         <mat-icon>undo icon</mat-icon>
       </button>
     </div>
   </mat-card-actions>
-  <mat-card-footer *ngIf="!drinkInfo && shouldShowInfo">
+  <mat-card-footer *ngIf="!info && status == 'info' ">
     <mat-progress-bar mode="indeterminate"></mat-progress-bar>
   </mat-card-footer>
 </mat-card>

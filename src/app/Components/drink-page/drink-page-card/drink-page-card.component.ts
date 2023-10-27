@@ -1,9 +1,11 @@
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
-import { of, switchMap, tap, pipe, delay } from 'rxjs';
+import { of, switchMap, tap, pipe, delay, Subject, Subscription, Observable } from 'rxjs';
 import { DrinkService } from 'src/app/Services/drink.service';
 import { DrinksCardDto } from 'src/app/Services/DTOs/drink-card.dto';
 import { Drink } from 'src/app/Models/drink.model';
 import { ChangeDetectionStrategy } from '@angular/core';
+
+export type cardStatus = 'default' | 'info'
 
 @Component({
   selector: 'kno-drink-page-card [id] [name] [imgSrc]',
@@ -18,35 +20,30 @@ export class DrinkPageCardComponent /* implements OnInit */ implements OnChanges
   @Input() imgSrc!: string
 
   @Input() shouldShowInfo: boolean = false;
+  @Input() info!: Drink | null | undefined
+  @Input() status: cardStatus = 'default'
 
-  @Output() cardClicked: EventEmitter<string> = new EventEmitter<string>();
-
-  drinkInfo: string | undefined
-
-  drinkIngredients: string[] | undefined
-
-  drinkObj!: Drink;
+  @Output() changeStatus = new EventEmitter<cardStatus>();
 
   constructor(private readonly drinkService: DrinkService, private readonly cdr: ChangeDetectorRef) {
   }
 
+  ngOnInit(): void {
+  }
+
   ngOnChanges() {
-    
+    /* if (this.info != null)
+      console.log('child onchanges: ', this.info) */
   }
 
   onInfoClicked() {
-    if (!this.drinkInfo)
-      this.drinkService.getCocktail$(this.name).pipe(
-        delay(1500),
-        tap(dto => this.drinkObj = dto),
-        tap(() => this.drinkInfo = this.drinkObj.instructions),
-        tap(() => this.drinkIngredients = this.drinkObj.ingredients)
-        ).subscribe(_ => this.cdr.markForCheck())
-        this.cardClicked.emit(this.id);
+    this.status = 'info'
+    this.changeStatus.emit(this.status)
   }
 
   onBackClicked() {
-    this.cardClicked.emit(this.id);
+    this.status = 'default'
+    this.changeStatus.emit(this.status)
   }
 
 }
