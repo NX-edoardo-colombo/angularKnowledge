@@ -1,36 +1,37 @@
 .flexContainer {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 10px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
 }
 
 h1 {
-    color: #EEEEEE;
-    text-align: center;
-    font-size: 50px;
-    padding: 2%;
+  color: #EEEEEE;
+  text-align: center;
+  font-size: 50px;
+  padding: 2%;
 }
 
 .bodyDiv {
-    background-color: #222831;
+  background-color: #222831;
 }
 
-:host kno-drink-page-card{
-    display: block;
-    height: 540px;
-    width: 400px;
-    border-radius: 15px;
-    outline: 0px;
+:host kno-drink-page-card {
+  display: block;
+  height: 540px;
+  width: 400px;
+  border-radius: 15px;
+  outline: 0px;
 }
 
 mat-paginator {
-    background-color: #393E46;
-    color: #EEEEEE;
+  background-color: #393E46;
+  color: #EEEEEE;
+  margin-top: 10px;
 }
 
-mat-paginator .mat-select-arrow{
-    background-color: #393E46 !important;
-    color: #EEEEEE !important; 
+mat-paginator .mat-select-arrow {
+  background-color: #393E46 !important;
+  color: #EEEEEE !important;
 }
