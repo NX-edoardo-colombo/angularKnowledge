@@ -3,5 +3,10 @@ export interface Drink {
     name: string,
     description: string,
     ingredients: string[],
-    instructions: string
+    measures: string[],
+    instructions: string,
+    glass: string,
+    category: string,
+    image: string
+
 }

@@ -13,7 +13,15 @@ export function DrinkImportDtoToDrink(source: DrinkCardDto): Drink {
             source.strIngredient7, source.strIngredient8, source.strIngredient9,
             source.strIngredient10, source.strIngredient11, source.strIngredient12,
             source.strIngredient13, source.strIngredient14, source.strIngredient15].filter(ingredient => ingredient),
-        instructions: source.strInstructions
+        measures: [
+            source.strMeasure1, source.strMeasure2, source.strMeasure3,
+            source.strMeasure4, source.strMeasure5, source.strMeasure6,
+            source.strMeasure7, source.strMeasure8, source.strMeasure9,
+            source.strMeasure10, source.strMeasure11, source.strMeasure12,
+            source.strMeasure13, source.strMeasure14, source.strMeasure15].filter(measures => measures),
+        instructions: source.strInstructions,
+        glass: source.strGlass,
+        image: source.strDrinkThumb
 
 
     } as Drink

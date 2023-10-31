@@ -1,1 +1,19 @@
-<p>drink-info-page works!</p>
+<div class="drinkPage">
+  <div class="drinkHeader">
+    <h1>{{drink!.name}}</h1>
+    <h2>{{drink!.id}}</h2>
+  </div>
+  <div class="drinkContent">
+    <p>Type and glass: <br> {{drink!.description}}</p>
+    <ng-container>
+      <p>Ingredients:</p>
+      <ul>
+        <li *ngFor="let ingredient of drink!.ingredients; let i = index">
+          {{ingredient}} X {{drink!.measures[i]}}
+        </li>
+      </ul>
+    </ng-container>
+    <p>Instruction: <br> {{drink!.instructions}}</p>
+    <img src="{{drink!.image}}" alt="immagine di {{drink!.name}}">
+  </div>
+</div>

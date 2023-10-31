@@ -3,10 +3,10 @@
 
   <div class="flexContainer">
     <ng-container *ngFor="let drink of drinks">
-      <kno-drink-page-card [id]="drink.idDrink" [imgSrc]="drink.strDrinkThumb" [name]="drink.strDrink"
+      <kno-drinks-page-card [id]="drink.idDrink" [imgSrc]="drink.strDrinkThumb" [name]="drink.strDrink"
         [status]="openCardId === drink.idDrink? 'info' : 'default' " [info]="(currentCardInfo$ | async) "
         (changeStatus)="onCardChangeStatus(drink.idDrink, $event)">
-      </kno-drink-page-card>
+      </kno-drinks-page-card>
     </ng-container>
   </div>
   <mat-paginator #drinkCardPaginator [length]="totalDrinksLenght" [pageSize]="currentPageSize"

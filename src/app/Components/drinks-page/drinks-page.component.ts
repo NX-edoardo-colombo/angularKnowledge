@@ -4,16 +4,16 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { BehaviorSubject, Observable, Subject, delay, filter, map, of, pipe, switchMap, takeUntil, tap } from 'rxjs';
 import { Drink } from 'src/app/Models/drink.model';
 import { DrinkLookupDto, DrinksLookupDto } from 'src/app/Infrastructure/DTOs/drink-table.dto';
-import { DrinkService } from 'src/app/Services/drink.service';
-import { cardStatus } from './drink-page-card/drink-page-card.component';
+import { DrinksPageService } from './drinks-page.service';
+import { cardStatus } from './drinks-page-card/drinks-page-card.component';
 
 @Component({
-  selector: 'kno-drink-page',
-  templateUrl: './drink-page.component.html',
-  styleUrls: ['./drink-page.component.scss'],
+  selector: 'kno-drinks-page',
+  templateUrl: './drinks-page.component.html',
+  styleUrls: ['./drinks-page.component.scss'],
   changeDetection: ChangeDetectionStrategy.Default
 })
-export class DrinkPageComponent implements OnInit, OnChanges {
+export class DrinksPageComponent implements OnInit, OnChanges {
 
   drinks: DrinkLookupDto[] | undefined
   tableStatus: 'NotLoaded' | 'Loaded' | 'Empty' = 'NotLoaded'
@@ -28,11 +28,15 @@ export class DrinkPageComponent implements OnInit, OnChanges {
 
   pageSizeOptions = [5, 10, 25, 50, 100]
 
-  constructor(private readonly drinkService: DrinkService, private readonly cdr: ChangeDetectorRef) {
+  constructor(private readonly drinkPageService: DrinksPageService, private readonly cdr: ChangeDetectorRef) {
   }
 
-  get drinkServiceInstance(): DrinkService {
-    return this.drinkService;
+  get drinkServiceInstance(): DrinksPageService {
+    return this.drinkPageService;
+  }
+
+  get boardItem() {
+    return 0
   }
 
   ngOnInit(): void {
@@ -51,7 +55,7 @@ export class DrinkPageComponent implements OnInit, OnChanges {
     else if (status == 'info') {
       this.openCardId = cardId
 
-      this.drinkService.getCocktail$(cardId).pipe(
+      this.drinkPageService.getCocktail$(cardId).pipe(
         tap(dto => this.currentCardInfo$.next(dto))
       ).subscribe()
     }
@@ -66,7 +70,7 @@ export class DrinkPageComponent implements OnInit, OnChanges {
 
 
   private loadBoard$() {
-    return this.drinkService.getCocktailList$(this.currentPageIndex, this.currentPageSize)
+    return this.drinkPageService.getCocktailList$(this.currentPageIndex, this.currentPageSize)
       .pipe(
         tap(response => this.totalDrinksLenght = response[1]),
         map(response => response[0]),

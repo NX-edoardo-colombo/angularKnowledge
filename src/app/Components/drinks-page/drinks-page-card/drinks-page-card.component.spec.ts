@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DrinkPageCardComponent } from './drink-page-card.component';
+import { DrinksPageCardComponent } from './drinks-page-card.component';
 
 describe('DrinkPageCardComponent', () => {
-  let component: DrinkPageCardComponent;
-  let fixture: ComponentFixture<DrinkPageCardComponent>;
+  let component: DrinksPageCardComponent;
+  let fixture: ComponentFixture<DrinksPageCardComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [DrinkPageCardComponent]
+      declarations: [DrinksPageCardComponent]
     });
-    fixture = TestBed.createComponent(DrinkPageCardComponent);
+    fixture = TestBed.createComponent(DrinksPageCardComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

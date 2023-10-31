@@ -8,12 +8,12 @@ import { ChangeDetectionStrategy } from '@angular/core';
 export type cardStatus = 'default' | 'info'
 
 @Component({
-  selector: 'kno-drink-page-card [id] [name] [imgSrc]',
-  templateUrl: './drink-page-card.component.html',
-  styleUrls: ['./drink-page-card.component.scss'],
+  selector: 'kno-drinks-page-card [id] [name] [imgSrc]',
+  templateUrl: './drinks-page-card.component.html',
+  styleUrls: ['./drinks-page-card.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DrinkPageCardComponent /* implements OnInit */ implements OnChanges {
+export class DrinksPageCardComponent /* implements OnInit */ implements OnChanges {
 
   @Input() id!: string
   @Input() name!: string
