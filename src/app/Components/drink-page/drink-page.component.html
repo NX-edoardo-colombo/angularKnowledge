@@ -9,7 +9,7 @@
       </kno-drink-page-card>
     </ng-container>
   </div>
-  <mat-paginator #drinkCardPaginator [length]="drinks?.length ?? 0" [pageSize]="currentPageSize"
+  <mat-paginator #drinkCardPaginator [length]="totalDrinksLenght" [pageSize]="currentPageSize"
     [pageSizeOptions]="pageSizeOptions" aria-label="Select page" (page)="OnPageChange($event)">
   </mat-paginator>
 

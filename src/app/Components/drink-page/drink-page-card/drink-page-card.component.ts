@@ -25,15 +25,13 @@ export class DrinkPageCardComponent /* implements OnInit */ implements OnChanges
 
   @Output() changeStatus = new EventEmitter<cardStatus>();
 
-  constructor(private readonly drinkService: DrinkService, private readonly cdr: ChangeDetectorRef) {
+  constructor() {
   }
 
   ngOnInit(): void {
   }
 
   ngOnChanges() {
-    /* if (this.info != null)
-      console.log('child onchanges: ', this.info) */
   }
 
   onInfoClicked() {

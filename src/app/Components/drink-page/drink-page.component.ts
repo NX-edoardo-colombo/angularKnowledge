@@ -20,6 +20,7 @@ export class DrinkPageComponent implements OnInit, OnChanges {
 
   currentPageIndex: number = 0
   currentPageSize: number = 10
+  totalDrinksLenght: number = 0
 
   openCardId: string | null = null;
 
@@ -35,6 +36,7 @@ export class DrinkPageComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
+    this.firstLoadBoard$().subscribe();
     this.loadBoard$().subscribe();
   }
 
@@ -58,11 +60,18 @@ export class DrinkPageComponent implements OnInit, OnChanges {
   }
 
   OnPageChange(event: PageEvent) {
-
     this.currentPageIndex = event.pageIndex
     this.currentPageSize = event.pageSize
-
     this.loadBoard$().subscribe();
+  }
+
+  private firstLoadBoard$() {
+    return this.drinkService.getFirstCocktailList$()
+      .pipe(
+        tap((dto: DrinksLookupDto) => {
+          this.totalDrinksLenght = dto.drinks.length;
+        })
+      )
   }
 
   private loadBoard$() {
@@ -72,11 +81,4 @@ export class DrinkPageComponent implements OnInit, OnChanges {
         tap((dto: DrinksLookupDto) => this.drinks = dto.drinks)
       )
   }
-
-  // private loadBoard$ =     this.drinkService.getCocktailList$(this.currentPageIndex, this.currentPageSize)
-  //     .pipe(
-  //       tap((dto: DrinksLookupDto) => this.tableStatus = dto.drinks.length > 0 ? 'Loaded' : 'Empty'),
-  //       tap((dto: DrinksLookupDto) => this.drinks = dto.drinks)
-  //     )
-
 }

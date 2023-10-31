@@ -17,6 +17,10 @@ export class DrinkService {
 
   constructor(private readonly http: HttpClient) { }
 
+  getFirstCocktailList$(): Observable<DrinksLookupDto> {
+    return this.http.get<DrinksLookupDto>('https://www.thecocktaildb.com/api/json/v1/1/filter.php?a=Alcoholic')
+  }
+
   getCocktailList$(pageIndex: number, pageSize: number, withoutCache = false): Observable<DrinksLookupDto> {
 
     if (this.drinksCache && !withoutCache) return this.drinksCache.pipe(
