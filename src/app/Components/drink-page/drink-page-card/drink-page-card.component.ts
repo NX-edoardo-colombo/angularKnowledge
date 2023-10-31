@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { of, switchMap, tap, pipe, delay, Subject, Subscription, Observable } from 'rxjs';
 import { DrinkService } from 'src/app/Services/drink.service';
-import { DrinksCardDto } from 'src/app/Services/DTOs/drink-card.dto';
+import { DrinksCardDto } from 'src/app/Infrastructure/DTOs/drink-card.dto';
 import { Drink } from 'src/app/Models/drink.model';
 import { ChangeDetectionStrategy } from '@angular/core';
 

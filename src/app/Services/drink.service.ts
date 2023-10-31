@@ -1,11 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, delay, filter, first, map, of, pipe, tap } from 'rxjs';
-import { DrinkLookupDto, DrinksLookupDto } from './DTOs/drink-table.dto';
-import { DrinksCardDto } from './DTOs/drink-card.dto';
+import { DrinkLookupDto, DrinksLookupDto } from '../Infrastructure/DTOs/drink-table.dto';
+import { DrinksCardDto } from '../Infrastructure/DTOs/drink-card.dto';
 import { DrinkImportDtoToDrink } from '../Mapping/drink-dto.mapping';
 import { Drink } from '../Models/drink.model';
 import { cloneDeep } from 'lodash'
+import { DrinkProxyService } from '../Infrastructure/drink-proxy.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,24 +16,20 @@ export class DrinkService {
   private drinksCache: BehaviorSubject<DrinksLookupDto> | undefined
   private drinkInfoCache: Map<string, BehaviorSubject<DrinksCardDto>> = new Map();
 
-  constructor(private readonly http: HttpClient) { }
+  constructor(private readonly drinkProxyService: DrinkProxyService) { }
 
-  getFirstCocktailList$(): Observable<DrinksLookupDto> {
-    return this.http.get<DrinksLookupDto>('https://www.thecocktaildb.com/api/json/v1/1/filter.php?a=Alcoholic')
-  }
-
-  getCocktailList$(pageIndex: number, pageSize: number, withoutCache = false): Observable<DrinksLookupDto> {
+  getCocktailList$(pageIndex: number, pageSize: number, withoutCache = false): Observable<[DrinksLookupDto, number]> {
 
     if (this.drinksCache && !withoutCache) return this.drinksCache.pipe(
       first(),
-      map(dto => this.sliceMapPipe(dto, pageIndex, pageSize))
+      map(dto => [this.sliceMapPipe(dto, pageIndex, pageSize), dto.drinks.length])
     )
 
-    return this.http.get<DrinksLookupDto>('https://www.thecocktaildb.com/api/json/v1/1/filter.php?a=Alcoholic').pipe(
+    return this.drinkProxyService.getCocktailList$().pipe(
       tap(dto => {
         this.drinksCache = new BehaviorSubject<DrinksLookupDto>(dto)
       }),
-      map(dto => this.sliceMapPipe(dto, pageIndex, pageSize))
+      map(dto => [this.sliceMapPipe(dto, pageIndex, pageSize), dto.drinks.length])
     )
   }
 
@@ -44,7 +41,7 @@ export class DrinkService {
       );
     }
 
-    return this.http.get<DrinksCardDto>('https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=' + id).pipe(
+    return this.drinkProxyService.getCocktail$(id).pipe(
       delay(1500),
       tap(dto => {
         this.drinkInfoCache.set(id, new BehaviorSubject(dto))

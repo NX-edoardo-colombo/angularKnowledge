@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, OnChanges } from '@angular/core';
 import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { BehaviorSubject, Subject, delay, filter, map, of, pipe, switchMap, takeUntil, tap } from 'rxjs';
+import { BehaviorSubject, Observable, Subject, delay, filter, map, of, pipe, switchMap, takeUntil, tap } from 'rxjs';
 import { Drink } from 'src/app/Models/drink.model';
-import { DrinkLookupDto, DrinksLookupDto } from 'src/app/Services/DTOs/drink-table.dto';
+import { DrinkLookupDto, DrinksLookupDto } from 'src/app/Infrastructure/DTOs/drink-table.dto';
 import { DrinkService } from 'src/app/Services/drink.service';
 import { cardStatus } from './drink-page-card/drink-page-card.component';
 
@@ -36,7 +36,6 @@ export class DrinkPageComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
-    this.firstLoadBoard$().subscribe();
     this.loadBoard$().subscribe();
   }
 
@@ -65,18 +64,12 @@ export class DrinkPageComponent implements OnInit, OnChanges {
     this.loadBoard$().subscribe();
   }
 
-  private firstLoadBoard$() {
-    return this.drinkService.getFirstCocktailList$()
-      .pipe(
-        tap((dto: DrinksLookupDto) => {
-          this.totalDrinksLenght = dto.drinks.length;
-        })
-      )
-  }
 
   private loadBoard$() {
     return this.drinkService.getCocktailList$(this.currentPageIndex, this.currentPageSize)
       .pipe(
+        tap(response => this.totalDrinksLenght = response[1]),
+        map(response => response[0]),
         tap((dto: DrinksLookupDto) => this.tableStatus = dto.drinks.length > 0 ? 'Loaded' : 'Empty'),
         tap((dto: DrinksLookupDto) => this.drinks = dto.drinks)
       )

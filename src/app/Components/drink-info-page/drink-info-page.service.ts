@@ -3,11 +3,9 @@ import { Injectable } from '@angular/core';
 @Injectable({
   providedIn: 'root'
 })
-export class EasyStateService {
+export class DrinkInfoPageService {
 
-  label: string = 'Ciao'
+
 
   constructor() { }
-
-
 }

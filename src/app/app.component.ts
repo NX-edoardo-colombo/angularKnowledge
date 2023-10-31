@@ -14,13 +14,6 @@ export class AppComponent {
 
   }
 
-  onClick() {
-    console.log('Ciao hai cliccato')
-  }
-
-  onClickContent(event: string) {
-    console.log('xxxCiao hai cliccato', event)
-  }
 
 
 
