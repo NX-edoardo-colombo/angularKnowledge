@@ -17,6 +17,7 @@ import { CardHighlightDirective } from './Components/drinks-page/drinks-page-car
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatListModule } from '@angular/material/list';
 import { DrinkInfoPageComponent } from './Components/drink-info-page/drink-info-page.component';
+import { DrinkInfoComponent } from './Components/drink-info-page/drink-info/drink-info.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { DrinkInfoPageComponent } from './Components/drink-info-page/drink-info-
     DrinksPageComponent,
     DrinksPageCardComponent,
     CardHighlightDirective,
-    DrinkInfoPageComponent
+    DrinkInfoPageComponent,
+    DrinkInfoComponent
   ],
   imports: [
     BrowserModule,

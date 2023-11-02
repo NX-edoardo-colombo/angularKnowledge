@@ -1,0 +1,23 @@
+<ng-container *ngIf="info else loader">
+  <div class="drinkPage">
+    <div class="drinkHeader">
+      <h1>{{info!.name}}</h1>
+      <h2>{{info!.id}}</h2>
+    </div>
+    <div class="drinkContent">
+      <p>Type and glass: <br> {{info!.description}}</p>
+      <ng-container>
+        <p>Ingredients:</p>
+        <ul>
+          <li *ngFor="let ingredient of info!.ingredients; let i = index">
+            {{ingredient}} X {{info!.measures[i]}}
+          </li>
+        </ul>
+      </ng-container>
+      <p>Instruction: <br> {{info!.instructions}}</p>
+      <img src="{{info!.image}}" alt="immagine di {{info!.name}}">
+    </div>
+  </div>
+</ng-container>
+
+<ng-template #loader></ng-template>
