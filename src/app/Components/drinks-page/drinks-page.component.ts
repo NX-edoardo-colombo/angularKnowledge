@@ -18,7 +18,6 @@ export class DrinksPageComponent implements OnInit, OnChanges {
   drinks: DrinkLookupDto[] | undefined
   tableStatus: 'NotLoaded' | 'Loaded' | 'Empty' = 'NotLoaded'
 
-  currentPageIndex: number = 0
   currentPageSize: number = 10
   totalDrinksLenght: number = 0
 
@@ -40,7 +39,9 @@ export class DrinksPageComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
-    this.loadBoard$().subscribe();
+    this.getBoardItems$(0, this.currentPageSize)
+      .pipe(this.setBoardPipe)
+      .subscribe();
   }
 
   ngOnChanges() {
@@ -63,19 +64,22 @@ export class DrinksPageComponent implements OnInit, OnChanges {
   }
 
   OnPageChange(event: PageEvent) {
-    this.currentPageIndex = event.pageIndex
     this.currentPageSize = event.pageSize
-    this.loadBoard$().subscribe();
+
+    this.getBoardItems$(event.pageIndex, event.pageSize)
+      .pipe(this.setBoardPipe)
+      .subscribe()
   }
 
 
-  private loadBoard$() {
-    return this.drinkPageService.getCocktailList$(this.currentPageIndex, this.currentPageSize)
-      .pipe(
-        tap(response => this.totalDrinksLenght = response[1]),
-        map(response => response[0]),
-        tap((dto: DrinksLookupDto) => this.tableStatus = dto.drinks.length > 0 ? 'Loaded' : 'Empty'),
-        tap((dto: DrinksLookupDto) => this.drinks = dto.drinks)
-      )
+  private getBoardItems$(pageIndex: number, pageSize: number) {
+    return this.drinkPageService.getCocktailList$(pageIndex, pageSize)
   }
+
+  setBoardPipe = pipe(
+    tap((response: [DrinksLookupDto, number]) => this.totalDrinksLenght = response[1]),
+    map(response => response[0]),
+    tap((dto: DrinksLookupDto) => this.tableStatus = dto.drinks.length > 0 ? 'Loaded' : 'Empty'),
+    tap((dto: DrinksLookupDto) => this.drinks = dto.drinks)
+  )
 }
