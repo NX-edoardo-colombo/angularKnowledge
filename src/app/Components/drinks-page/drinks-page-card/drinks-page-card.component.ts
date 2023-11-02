@@ -4,6 +4,7 @@ import { DrinkService } from 'src/app/Services/drink.service';
 import { DrinksCardDto } from 'src/app/Infrastructure/DTOs/drink-card.dto';
 import { Drink } from 'src/app/Models/drink.model';
 import { ChangeDetectionStrategy } from '@angular/core';
+import { Router } from '@angular/router';
 
 export type cardStatus = 'default' | 'info'
 
@@ -24,6 +25,7 @@ export class DrinksPageCardComponent /* implements OnInit */ implements OnChange
   @Input() status: cardStatus = 'default'
 
   @Output() changeStatus = new EventEmitter<cardStatus>();
+  @Output() viewAllClicked = new EventEmitter<string>();
 
   constructor() {
   }
@@ -42,6 +44,12 @@ export class DrinksPageCardComponent /* implements OnInit */ implements OnChange
   onBackClicked() {
     this.status = 'default'
     this.changeStatus.emit(this.status)
+  }
+
+  onViewAllClicked() {
+    if (this.id) {
+      this.viewAllClicked.emit(this.id)
+    }
   }
 
 }

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { Drink } from 'src/app/Models/drink.model';
 
 @Component({
@@ -9,4 +9,9 @@ import { Drink } from 'src/app/Models/drink.model';
 })
 export class DrinkInfoComponent {
   @Input() info: Drink | null | undefined
+  @Output() goBackClicked = new EventEmitter<void>()
+
+  onGoBackClicked() {
+    this.goBackClicked.emit()
+  }
 }

@@ -6,6 +6,7 @@ import { Drink } from 'src/app/Models/drink.model';
 import { DrinkLookupDto, DrinksLookupDto } from 'src/app/Infrastructure/DTOs/drink-table.dto';
 import { DrinksPageService } from './drinks-page.service';
 import { cardStatus } from './drinks-page-card/drinks-page-card.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'kno-drinks-page',
@@ -27,7 +28,7 @@ export class DrinksPageComponent implements OnInit, OnChanges {
 
   pageSizeOptions = [5, 10, 25, 50, 100]
 
-  constructor(private readonly drinkPageService: DrinksPageService, private readonly cdr: ChangeDetectorRef) {
+  constructor(private readonly drinkPageService: DrinksPageService, private readonly cdr: ChangeDetectorRef, private router: Router) {
   }
 
   get drinkServiceInstance(): DrinksPageService {
@@ -61,6 +62,12 @@ export class DrinksPageComponent implements OnInit, OnChanges {
       ).subscribe()
     }
 
+  }
+
+  onViewDrinkPage(id: string) {
+    if (id) {
+      this.router.navigate(['drink', id]);
+    }
   }
 
   OnPageChange(event: PageEvent) {

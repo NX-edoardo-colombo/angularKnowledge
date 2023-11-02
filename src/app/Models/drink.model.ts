@@ -11,5 +11,6 @@ export interface Drink {
     instructions: string,
     glass: string,
     category: string,
-    image: string
+    image: string,
+    alcoholic: string
 }

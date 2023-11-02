@@ -5,7 +5,7 @@
     <ng-container *ngFor="let drink of drinks">
       <kno-drinks-page-card [id]="drink.idDrink" [imgSrc]="drink.strDrinkThumb" [name]="drink.strDrink"
         [status]="openCardId === drink.idDrink? 'info' : 'default' " [info]="(currentCardInfo$ | async) "
-        (changeStatus)="onCardChangeStatus(drink.idDrink, $event)">
+        (changeStatus)="onCardChangeStatus(drink.idDrink, $event)" (viewAllClicked)="onViewDrinkPage($event)">
       </kno-drinks-page-card>
     </ng-container>
   </div>

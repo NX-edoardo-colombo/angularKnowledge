@@ -8,7 +8,7 @@
     <p class="drinkInstruction" *ngIf="this.status == 'info'">{{info?.instructions}}</p>
     <mat-list *ngIf="this.status == 'info' && info">
       <mat-list-item *ngFor="let ingredient of info!.ingredients">
-        <mat-chip class="chipElement">{{ ingredient! }}</mat-chip>
+        <mat-chip class="chipElement">{{ ingredient!.name }}</mat-chip>
       </mat-list-item>
     </mat-list>
   </mat-card-content>
@@ -19,10 +19,18 @@
         <mat-icon>info</mat-icon>
       </button>
     </div>
-    <div class="example-button-container">
-      <button *ngIf="this.status == 'info'" mat-fab aria-label="GO BACK" (click)="onBackClicked()">
-        <mat-icon>undo icon</mat-icon>
-      </button>
+    <div class="flexButton">
+      <div class="example-button-container">
+        <button class="viewAllButton" *ngIf="this.status == 'info' && info" mat-fab aria-label="VIEW ALL"
+          (click)="onViewAllClicked()">
+          View all
+        </button>
+      </div>
+      <div class="example-button-container">
+        <button *ngIf="this.status == 'info' && info" mat-fab aria-label="GO BACK" (click)="onBackClicked()">
+          <mat-icon>undo icon</mat-icon>
+        </button>
+      </div>
     </div>
   </mat-card-actions>
   <mat-card-footer *ngIf="!info && status == 'info' ">
