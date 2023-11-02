@@ -18,6 +18,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatListModule } from '@angular/material/list';
 import { DrinkInfoPageComponent } from './Components/drink-info-page/drink-info-page.component';
 import { DrinkInfoComponent } from './Components/drink-info-page/drink-info/drink-info.component';
+import { ForbiddenPageComponent } from './Components/forbidden-page/forbidden-page.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { DrinkInfoComponent } from './Components/drink-info-page/drink-info/drin
     DrinksPageCardComponent,
     CardHighlightDirective,
     DrinkInfoPageComponent,
-    DrinkInfoComponent
+    DrinkInfoComponent,
+    ForbiddenPageComponent
   ],
   imports: [
     BrowserModule,

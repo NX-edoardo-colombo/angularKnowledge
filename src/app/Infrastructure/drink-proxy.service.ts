@@ -11,12 +11,9 @@ export class DrinkProxyService {
 
   constructor(private readonly http: HttpClient) { }
 
-  getFirstCocktailList$(): Observable<DrinksLookupDto> {
-    return this.http.get<DrinksLookupDto>('https://www.thecocktaildb.com/api/json/v1/1/filter.php?a=Alcoholic')
-  }
 
   getCocktailList$(): Observable<DrinksLookupDto> {
-    return this.http.get<DrinksLookupDto>('https://www.thecocktaildb.com/api/json/v1/1/filter.php?a=Alcoholic')
+    return this.http.get<DrinksLookupDto>('https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=Cocktail')
   }
 
   getCocktail$(id: string): Observable<DrinksCardDto> {

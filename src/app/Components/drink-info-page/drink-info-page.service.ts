@@ -18,4 +18,10 @@ export class DrinkInfoPageService {
       map(dto => dto.drinks.map(drink => DrinkImportDtoToDrink(drink))[0])
     )
   }
+
+  isDrinkAlcholic$(id: string): Observable<boolean> {
+    return this.drinkProxyService.getCocktail$(id).pipe(
+      map(dto => dto.drinks[0].strAlcoholic == 'Alcoholic')
+    )
+  }
 }
