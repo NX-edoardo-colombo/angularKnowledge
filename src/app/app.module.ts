@@ -19,6 +19,7 @@ import { MatListModule } from '@angular/material/list';
 import { DrinkInfoPageComponent } from './Components/drink-info-page/drink-info-page.component';
 import { DrinkInfoComponent } from './Components/drink-info-page/drink-info/drink-info.component';
 import { ForbiddenPageComponent } from './Components/forbidden-page/forbidden-page.component';
+import { ErrorPageComponent } from './Components/error-page/error-page.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { ForbiddenPageComponent } from './Components/forbidden-page/forbidden-pa
     CardHighlightDirective,
     DrinkInfoPageComponent,
     DrinkInfoComponent,
-    ForbiddenPageComponent
+    ForbiddenPageComponent,
+    ErrorPageComponent
   ],
   imports: [
     BrowserModule,

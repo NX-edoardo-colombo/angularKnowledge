@@ -9,8 +9,6 @@ import { Drink } from 'src/app/Models/drink.model';
 })
 export class DrinkInfoPageService {
 
-
-
   constructor(private readonly drinkProxyService: DrinkProxyService) { }
 
   getCocktailInfo$(id: string): Observable<Drink> {
