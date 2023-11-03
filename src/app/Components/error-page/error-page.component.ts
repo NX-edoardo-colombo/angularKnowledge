@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'kno-error-page',
@@ -7,5 +8,10 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ErrorPageComponent {
+
+  constructor(private router: Router) { }
+  onGoHomePage() {
+    this.router.navigate(['/'])
+  }
 
 }
