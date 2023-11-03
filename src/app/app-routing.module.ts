@@ -9,7 +9,7 @@ const routes: Routes = [
   { path: 'drink/:id', component: DrinkInfoPageComponent, canActivate: [DrinkInfoGuard] },
   { path: 'forbidden-drink', component: ForbiddenPageComponent },
   { path: 'home', component: DrinksPageComponent },
-  { path: '', redirectTo: '/home', pathMatch: 'full' }
+  { path: '**', redirectTo: '/home', pathMatch: 'full' }
 
 ];
 
